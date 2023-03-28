@@ -17,5 +17,7 @@ void setup()
 
 void loop() 
 {
-	digitalWrite(LED_1,1);
+	uint8_t tasto_1;
+	tasto_1=digitalRead(S_1)^0x01; // xor 0x01 inverte il bit 0
+	digitalWrite(LED_1,tasto_1);
 }
