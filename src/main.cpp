@@ -8,7 +8,7 @@
 
 uint8_t duty=0;	// duty cycle in %
 uint8_t valore_pwm;	// valore da inviare al pin
-uint32_t tempo;
+uint32_t tempo=0;
 
 void setup() 
 {
@@ -24,22 +24,21 @@ void loop()
 	uint8_t tasto_1,tasto_2;
 	tasto_1=digitalRead(S_1);
 	tasto_2=digitalRead(S_2);
+	
 	if ((tasto_1==0)&&(duty<100))
 	{
 		duty=duty+10;
 		valore_pwm=duty*255/100;
 		analogWrite(LED_PWM,valore_pwm);
-		delay(2000);
+		delay(200);
 	}
-	if (tasto_2==0)
+	
+	if ((tasto_2==0)&&(duty>0))
 	{
-		if(millis()>(tempo+2000))
+		if(millis()>(tempo+200))
 		{
-			if (duty>0)
-			{
-				duty=duty-10;
-				valore_pwm=duty*255/100;
-			}
+			duty=duty-10;
+			valore_pwm=duty*255/100;
 			analogWrite(LED_PWM,valore_pwm);
 			tempo=millis();
 		}
